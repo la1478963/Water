@@ -43,8 +43,8 @@ class Init(object):
             path = '/mnt/www/pinglog/'
             D = datetime.datetime.now().strftime('%Y%m%d')
             path = path + D
-            # with open('1', 'r') as r:
-            with open(path, 'r') as r:
+            with open('1', 'r') as r:
+            # with open(path, 'r') as r:
                 JG_li = r.read().split('\n')
                 for item in JG_li:
                     try:

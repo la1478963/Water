@@ -92,12 +92,10 @@ DATA_UPLOAD_MAX_MEMORY_SIZE = 10000000000
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        # 'NAME': 'cmdb',
-        'NAME': 'scloudpay_cmdb',
-        'USER': 'cmdb_rw',
-        'PASSWORD': 'cmdb@123',
-        'HOST': '192.168.52.6',
-        # 'HOST': 'rdsp5ae3ypidj48wkt2o.mysql.rds.aliyuncs.com',
+        'NAME': 'cmdb',
+        'USER': 'cmdb_user',
+        'PASSWORD': 'onda1478963',
+        'HOST': '192.168.18.102',
         'PORT': '3306',
     }
 }
