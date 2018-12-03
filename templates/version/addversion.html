@@ -1,0 +1,576 @@
+{% extends "base.html" %}
+{% block content %}
+ <!-- container section start -->
+  <section id="container" class="">
+
+      <!--main content start-->
+      <section id="main-content">
+          <section class="wrapper">
+		  <div class="row">
+				<div class="col-lg-12">
+					<h3 class="page-header"><i class="fa fa-file-text-o"></i> 配置发布</h3>
+					<ol class="breadcrumb">
+						<li><i class="fa fa-home"></i><a href="/arya/home/">Home</a></li>
+						<li><i class="icon_document_alt"></i>需求</li>
+						<li><i class="fa fa-file-text-o"></i>配置发布</li>
+					</ol>
+				</div>
+			</div>
+              <!-- Basic Forms & Horizontal Forms-->
+              <div class="row ">
+                  <div class="col-lg-12">
+                    <header class="panel-heading ">
+                         配置项
+                      </header>
+                      <form  novalidate >
+                          {% csrf_token %}
+                        <div class="jira">
+                             <div class="col-lg-8">
+                                  <section class="panel">
+                                      <div class="panel-body">
+                                          <div class="form-group">
+                                              <label class="control-label col-sm-4">需求编号</label>
+                                              <div class="col-sm-6">
+                                                  <div class="input-prepend">
+                                                      <input  type="text" name="jira" class=" form-control" />
+                                                  </div>
+                                              </div>
+                                          </div>
+{#                                          <div class="form-group">#}
+{#                                              <label class="control-label col-sm-4">版本</label>#}
+{#                                              <div class="col-sm-6">#}
+{#                                                  <div class="input-prepend">#}
+{#                                                      <input  type="text" name="version" class=" form-control" />#}
+{#                                                  </div>#}
+{#                                              </div>#}
+{#                                          </div>#}
+                                          <div class="form-group">
+                                              <label class="control-label col-sm-4">版本</label>
+                                              <div class="col-sm-6">
+                                                  <div class="input-prepend">
+                                                      <input  type="text" name="timestamp" class=" form-control" value="{{ jira_version.time }}" />
+                                                  </div>
+                                              </div>
+                                          </div>
+
+                                          <div class="form-group">
+                                              <label class="control-label col-sm-4">添加项目</label>
+                                              <div class="col-sm-6">
+                                                  <div class="input-prepend">
+                                                      <input  type="text" name="project" class=" form-control Enter" />
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </section>
+                            </div>
+                            <div class="btn-group">
+                                 <a class="btn-success btn-lg" onclick="sub(this)">提交</a>
+                                 <a  class="btn-warning btn-lg" onclick="cancel(this)">取消</a>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="projects disproj">
+                              <div class="input-group col-lg-4 project_input" >
+                                  <span class="input-group-addon" id="basic-addon1">进度:<span style="color: red;">提测</span></span>
+                                  <span class="input-group-addon" id="basic-addon1">  </span>
+                                  <span class="input-group-addon" id="basic-addon1">项目</span>
+                                  <input type="text" class="form-control proj_name"  name="proj_name" disabled="disabled" >
+                                </div>
+
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-default dropdown-toggle package_btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        添加项 <span class="caret"></span>
+                                      </button>
+                                      <ul class="dropdown-menu">
+                                        <li><a name="package" onclick="add_package(this)">添加包</a></li>
+                                        <li><a name="sql" onclick="add_package(this)">添加sql</a></li>
+                                        <li><a name="conf" onclick="add_package(this)">添加配置</a></li>
+                                      </ul>
+                                </div>
+
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-default dropdown-toggle package_btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        所有包 <span class="caret"></span>
+                                      </button>
+                                      <ul class="dropdown-menu add_pack">
+{#                                        <li><a name="package" onclick="add_pac(this)">添加包</a></li>#}
+                                      </ul>
+                                </div>
+
+                                <div class="input-group col-lg-10 tb">
+                                      <section class="panel">
+                                          <header class="panel-heading">
+                                             包
+                                          </header>
+                                          <table class="table">
+                                              <thead>
+                                                  <tr>
+                                                      <th>名称</th>
+                                                      <th>创建时间</th>
+                                                      <th>环境</th>
+                                                        <th> </th>
+                                                  </tr>
+                                              </thead>
+                                              <tbody class="pack_l">  </tbody>
+                                          </table>
+                                      </section>
+
+                                    <section class="panel">
+                                          <header class="panel-heading">
+                                             sql
+                                          </header>
+                                          <table class="table">
+                                              <thead>
+                                                  <tr>
+                                                      <th>名称</th>
+                                                      <th>创建时间</th>
+                                                      <th>环境</th>
+                                                      <th> </th>
+                                                  </tr>
+                                              </thead>
+                                              <tbody class="sql_l">  </tbody>
+                                          </table>
+                                      </section>
+
+
+                                    <section class="panel">
+                                          <header class="panel-heading">
+                                             配置文件
+                                          </header>
+                                          <table class="table">
+                                              <thead>
+                                                  <tr>
+                                                      <th>名称</th>
+                                                      <th>服务器路径</th>
+                                                      <th>环境</th>
+                                                      <th> </th>
+                                                  </tr>
+                                              </thead>
+                                              <tbody class="conf_l">  </tbody>
+                                          </table>
+                                      </section>
+                                </div>
+
+                                <div class="package_all">
+
+                                    <div class="panel-body col-lg-3 package">
+                                      <div class="form-group">
+                                          <label for="exampleInputEmail1">包</label>
+                                          <input class="form-control"  name="package_name"   placeholder="包名">
+                                      </div>
+                                      <div class="form-group">
+                                          <a class="btn btn-primary upload_file" href="javascript:;">上传
+                                              <input type="file" class="upload" onchange="send(this)"  name="package" >
+                                          </a>
+                                      </div>
+                                  </div>
+
+                                <div class="panel-body col-lg-3 sql">
+                                      <div class="form-group">
+                                          <label for="exampleInputEmail1">sql</label>
+                                          <input  class="form-control"  name="sql_name" placeholder="sql">
+                                      </div>
+                                      <div class="form-group">
+                                          <a class="btn btn-primary  upload_file" href="javascript:;">上传
+                                              <input type="file" class="upload" onchange="send(this)"  name="sql" >
+                                          </a>
+                                      </div>
+                                  </div>
+
+                                    <div class="panel-body col-lg-5 conf">
+                                  <div class="form-group">
+                                      <label for="exampleInputEmail1">配置文件</label>
+                                      <div>
+                                        <input  class="form-control"  name="route" placeholder="路径">
+                                        <input  class="form-control"  name="env" placeholder="使用环境,默认所有">
+                                      </div>
+                                      <input  class="form-control"  name="conf_name" placeholder="conf">
+                                  </div>
+                                  <div class="form-group">
+                                      <a class="btn btn-primary upload_file" href="javascript:;">上传
+                                          <input type="file" class="upload" onchange="send(this)"  name="conf" >
+                                      </a>
+                                  </div>
+                              </div>
+                                </div>
+                            </div>
+                        </div>
+                      </form>
+                  </div>
+              </div>
+          </section>
+      </section>
+  </section>
+
+
+
+{% endblock %}
+{% block css %}
+        .project_input{
+            margin-left:200px;
+        }
+        .tb{
+            width:500px;
+            margin-top:15px;
+        }
+        .panel{
+            border-style:outset;
+            border-width:1px;
+            border-color: #3baae3;
+        }
+
+        .package_all{
+            float:left;
+            border-style:outset;
+            border-width:0.2px;
+            border-color: #3baae3;
+            width:540px;
+            margin-top:15px;
+            padding-bottom: 30px;
+        }
+        .panel-body{
+            margin-top:10px;
+        }
+        .jira{
+            margin-bottom:-15px;
+            text-align:center;
+            display: -webkit-flex;
+            -webkit-justify-content: center;
+            -webkit-align-items: center;
+        }
+        .disproj{
+            border-bottom-style:dotted;
+        }
+        .tb-group{
+            margin-bottom:0px;
+        }
+
+        .upload_file{
+            width:70px;
+            height:35px;
+            position:absolute;
+            display:block;
+        }
+        .upload_file input{
+            opacity:0;
+            position: absolute;
+            left:0;
+            top:0;
+            cursor: pointer;
+        }
+        .form-group{
+            display:block;
+        }
+        #main-content{
+            margin-left: 80px;
+        }
+        .wrapper{
+            margin-top: 20px;
+        }
+        .proje_btn{
+            margin-top:20px;
+            margin-left:20px;
+        }
+        .projects{
+            display:none;
+        }
+
+{% endblock %}
+
+{% block js %}
+    <script>
+
+    function updatefile(name,f) {
+        var $formData=new FormData();
+        $formData.append(name,f);
+        $.ajax({
+            url:'/test.html',
+            type:'POST',
+            dataType:'JSON',
+            data: $formData,
+            cache: false,
+            processData: false,
+            contentType: false,
+            async:false,
+            success:function (data) {
+                ret = data;
+            }
+        });
+        return ret
+    }
+    function sub(btn) {
+        var $proj_dic={};
+        $.each($('.addprojects'),function (index,value) {
+            var $proj_name=($(this).find('input.proj_name').val());
+            var $proj_table=$(this).find('.tb');
+            var $proj_package=$(this).find('.package_all');
+            $proj_dic[$proj_name]={'name':$proj_name,'package':[],'files':{}};
+            $proj_dic[$proj_name]['files']['package']=[];
+            $proj_dic[$proj_name]['files']['sql']=[];
+            $proj_dic[$proj_name]['files']['conf']=[];
+            $proj_package.find('input[name="package"]').each(function () {
+                if(typeof($(this).get(0).files[0]) != "undefined") {
+                    var $f = updatefile('package', $(this).get(0).files[0]);
+                    $proj_dic[$proj_name]['files']['package'].push($f)
+                }else{
+                    return false;
+                }
+            });
+            $proj_package.find('input[name="sql"]').each(function () {
+                if(typeof($(this).get(0).files[0]) != "undefined"){
+                    var $f=updatefile('sql',$(this).get(0).files[0]);
+                    $proj_dic[$proj_name]['files']['sql'].push($f);
+                }else{
+                    return false;
+                }
+            });
+            $proj_package.find('input[name="conf"]').each(function () {
+                if(typeof($(this).get(0).files[0]) != "undefined"){
+                    var $f=updatefile('conf',$(this).get(0).files[0]);
+                    var path=$(this).parent().parent('div').prev('div.form-group').find('input[name="route"]').val();
+                    var env=$(this).parent().parent('div').prev('div.form-group').find('input[name="env"]').val();
+                    $f['path']=path;
+                    $f['env']=env;
+                    $proj_dic[$proj_name]['files']['conf'].push($f);
+                }else{
+                    return false;
+                }
+            });
+        });
+        var $jira=$('input[name="jira"]').val();
+{#        var $version=$('input[name="version"]').val();#}
+        var $timestamp=$('input[name="timestamp"]').val();
+        var $data_dic={
+            'jira':$jira,
+            'timestamp':$timestamp,
+            'project':$proj_dic
+        };
+        console.log($data_dic);
+        var $send_data=JSON.stringify($data_dic);
+        $.ajaxSetup({
+                data: {csrfmiddlewaretoken: '{{ csrf_token }}'}
+            });
+        $.ajax({
+            url:'/arya/rbac/jiraversion/add.html',
+            type:'post',
+            data: {'data':$send_data},
+            success:function (jsondata) {
+                var data=JSON.parse(jsondata);
+                console.log(data);
+                if (data.msg){
+                    alert('添加成功');
+                    window.location.href='/arya/rbac/jiraversion/list.html'
+                }else{
+                    alert('ERROR--->'+data.error);
+                }
+            }
+        });
+    }
+
+    function cancel(btn) {
+        var T=$('input[name="timestamp"]').val();
+        $.ajax({
+            url:'/arya/rbac/jiraversion/add.html',
+            type:'DELETE',
+            data:{'time':T},
+            dataType:'json',
+            success:function (ret) {
+                if (ret.msg){
+                    window.location.href='/arya/rbac/jiraversion/list.html'
+                }else{
+                    alert(ret.error)
+                }
+            }
+        })
+    }
+
+
+    $('.Enter').keyup(function (event) {
+        if (event.keyCode==13){
+            var $name=$('.Enter').val();
+            var g=[];
+{#            将已经渲染到页面上面得值  存起来#}
+            $('input.proj_name').each(function () {
+                g.push($(this).val());
+            });
+{#                判断要添加的项目 是不是已经添加了#}
+            var tag=$.inArray($name,g) ;
+            if (tag ==-1){
+                add($name)
+            }else{
+                alert('已添加')
+            }
+    }});
+{#    加载 项目#}
+    function add($name) {
+        $.ajax({
+                url:'/arya/rbac/jiraversion/add.html',
+                type:'GET',
+                dataType:'JSON',
+            {#            通过tag 区分 包的状态#}
+                data:{'name':$name,'tag':1},
+                success: function (data) {
+                    if (data.msg){
+                        var $new_proj=$('.projects').first().clone();
+                        $new_proj.removeClass('projects');
+                        $new_proj.addClass('addprojects');
+                        var $addpack=$new_proj.find('ul.add_pack');
+                        var $pack_add=$new_proj.find('tbody.pack_l');
+                        var $sql_add=$new_proj.find('tbody.sql_l');
+                        var $conf_add=$new_proj.find('tbody.conf_l');
+                        var $data_proj=$new_proj.find('input.proj_name');
+                        $.each(data.data,function (index,value) {
+                            $data_proj.attr('disabled','false');
+                            $data_proj.val(value.name);
+                            $data_proj.attr('disabled','disabled');
+{#                            时间戳换格式#}
+                            var t = UnixToDate(value.pj__ctime,'Y-m-d');
+{#                            增加包按钮#}
+                            $but1=$('<li><a id='+ value.pj__id +' onclick="add_pac(this)">'+ value.pj__disname +'</a></li>');
+{#                            渲染名称#}
+                            $a1=$('<td>'+ value.pj__disname +'</td>');
+{#                            渲染时间#}
+                            $a2=$('<td>'+ t +'</td>');
+{#                            渲染路径#}
+                            $a22=$('<td>'+ value.pj__serverpath +'</td>');
+{#                            渲染环境#}
+                            $a3=$('<td>'+ value.pj__packenv +'</td>');
+{#                            渲染删除#}
+                            $a4=$('<td><a onclick="del_pac(this)" value='+value.pj__id+' class="btn btn-danger">删除</a>');
+                            $a5=$('<td><a onclick="del_oth(this)" value='+value.pj__id+' class="btn btn-danger">删除</a>');
+                            $a=$('<tr></tr>');
+                            $a.append($a1);
+                            if(value.pj__type == 1 || value.pj__type == 2){
+                                $a.append($a2);
+                                $a.append($a3);
+                                $a.append($a4);
+                                if(value.pj__bool){
+                                    $pack_add.append($a);
+                                }else{
+                                    $addpack.append($but1);
+                                }
+                            }else if(value.pj__type == 3){
+                                $a.append($a2);
+                                $a.append($a3);
+                                $a.append($a5);
+                                $sql_add.append($a);
+                            }else if (!value.pj__type){
+                                return false;
+                            }else{
+                                $a.append($a22);
+                                $a.append($a3);
+                                $a.append($a5);
+                                $conf_add.append($a);
+                            }
+                        });
+                        $('.disproj').parent().append($new_proj)
+                    }else{
+                        alert(data.error)
+                    }
+                }
+            });
+    }
+    function del_oth(btn) {
+        var $id=$(btn).attr('value');
+        $.ajax({
+            url:'/arya/rbac/jiraversion/add.html',
+            type:'GET',
+            dataType:'JSON',
+            data:{'oid':$id},
+            success:function (data) {
+                if(data.msg){
+                    $(btn).parent().parent('tr').remove();
+                }else{
+                    alert('删除失败')
+                }
+            }
+        })
+    }
+
+    function del_pac(btn) {
+        var $id=$(btn).attr('value');
+        $.ajax({
+            url:'/arya/rbac/jiraversion/add.html',
+            type:'GET',
+            dataType:'JSON',
+            data:{'did':$id},
+            success:function(data){
+                var value = data.data;
+                if (data.msg){
+                    var $addpack=$(btn).parent().parent().parent().parent().parent().parent().parent('.addprojects').find('ul.add_pack');
+                    var $but=$('<li><a id='+ value.id +' onclick="add_pac(this)">'+ value.disname +'</a></li>');
+                    $addpack.append($but);
+                    $(btn).parent().parent('tr').remove();
+                }else{
+                    alert('error');
+                }
+            }
+        })
+    }
+
+
+    function add_pac(btn) {
+        var $id=$(btn).attr('id');
+        $.ajax({
+            url:'/arya/rbac/jiraversion/add.html',
+            type:'GET',
+            dataType:'JSON',
+            data:{'id':$id},
+            success:function (data) {
+                var value = data.data;
+                var $add =$(btn).parents('.disproj').find('tbody.pack_l');
+                var t = UnixToDate(value.ctime,'Y-m-d');
+                $but1=$('<li><a id='+ value.id +' onclick="add_pac(this)">'+ value.disname +'</a></li>');
+                $a1=$('<td>'+ value.disname +'</td>');
+                $a2=$('<td>'+ t +'</td>');
+                $a3=$('<td>'+ value.packenv +'</td>');
+                $a4=$('<td><a onclick="del_pac(this)" value='+value.id+' class="btn btn-danger">删除</a>');
+                $a=$('<tr></tr>');
+                $a.append($a1);
+                $a.append($a2);
+                $a.append($a3);
+                $a.append($a4);
+                $add.append($a);
+                $(btn).remove()
+            }    
+        });
+    }
+
+
+
+{#    增加上传包样式#}
+    function add_package(btn) {
+        var this_name=$(btn).attr('name');
+        var fun=$('.'+this_name);
+        var add_fun=$(btn).parents('div.addprojects').find(fun);
+        add_fun.parent().append(fun.prop("outerHTML"));
+    }
+
+
+    function send(btn) {
+        var pag_name=$(btn).val();
+        $(btn).parent().parent().prev().children('input').val(pag_name);
+    }
+
+{#    时间戳#}
+     function UnixToDate(unixTime, isFull, timeZone) {
+        if (typeof (timeZone) == 'number'){
+            unixTime = parseInt(unixTime) + parseInt(timeZone) * 60 * 60;
+        }
+        var time = new Date(unixTime * 1000);
+        var ymdhis = "";
+        ymdhis += time.getUTCFullYear() + "-";
+        ymdhis += (time.getUTCMonth()+1) + "-";
+        ymdhis += time.getUTCDate();
+        if (isFull === true){
+            ymdhis += " " + time.getUTCHours() + ":";
+            ymdhis += time.getUTCMinutes() + ":";
+            ymdhis += time.getUTCSeconds();
+        }
+        return ymdhis;
+    }
+
+    </script>
+{% endblock %}

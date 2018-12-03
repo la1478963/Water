@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+{% load rbac %}
+{% block content %}
+    <div class="container">
+        <div class="page-title" style="margin: 10px 0;">
+{#        <div class="page-title" style="margin: 10px 0;background-color: white">#}
+            {% if data.get_show_add %}
+                <a href="{{ data.add_url }}" class="btn btn-primary add">添加</a>
+            {% endif %}
+
+
+            {% if data.get_show_ali %}
+                {% if data.get_show_add %}
+                    <a href="/arya/ali_main.html/" class="btn btn-primary alifunc">更新数据</a>
+                {% endif %}
+            {% endif %}
+
+            {% if data.get_search_list %}
+                <form method="GET">
+                    {% if data.get_search_button %}
+                        {% for item in data.get_search_button %}
+                                <div class="col-lg-2">
+                                    <select class="form-control" name={{ item.2 }}>
+                                        {% get_button_html data item %}
+                                    </select>
+                                </div>
+                        {% endfor %}
+                    {% endif %}
+                        <input type="text" name="q" value="{{ data.get_q }}" class="form-control form_search_q" style="width: 20%;float: left">
+                        <input type="submit" value="提交" class="btn btn-primary" />
+                    </form>
+            {% endif %}
+
+            {% if data.get_show_all_data %}
+{#                <span class="strdoaaaaaa">显示所有</span>#}
+                <input type="button" value="显示所有" class="btn btn-primary strdo"/>
+
+            {% endif %}
+
+
+        </div>
+        <table class="table table-bordered table-hover" id="table">
+            <thead>
+                <tr>
+                    {% for i in data.table_head %}
+                            <th>{{ i }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in data.table_body %}
+                    <tr>
+                        {% for i in item %}
+                            <td>{{ i }}</td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+{#        {% if data.get_show_dels %}#}
+{#            <div class="dels">#}
+{#                <a  class="btn btn-danger all-del">批量删除</a>#}
+{#            </div>#}
+{#        {% endif %}#}
+        <ul class="pagination">
+            {{ data.page_html|safe }}
+            {{ data.page_list_html|safe }}
+        </ul>
+    </div>
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="/arya/static/arya/plugins/bootstrap/css/bootstrap.css"/>
+    <style>
+        .dels{
+            display: none;
+        }
+        .add,.all-del,.alifunc{
+            float: right;
+        }
+        .alifunc{
+            margin-right: 10px;
+        }
+
+        .col-lg-2{
+            width: 135px;
+        }
+        td a{
+            display: block;
+        }
+    .pagination li{
+        float: left;
+    }
+    #table tr{
+        max-height: 60px;
+    }
+    #table td{
+        max-width: 60px;
+        word-break: break-all;
+    }
+
+    .col-lg-2{
+        margin-left: -14px;
+    }
+
+
+    </style>
+{% endblock %}
+
+
+{% block js %}
+    <script>
+
+      $('.strdo').click(function () {
+          $('.strdone').removeClass('strdone')
+      });
+
+        $('.alifunc').click(function () {
+            alert('正在获取....');
+
+        });
+    </script>
+{% endblock  %}
+

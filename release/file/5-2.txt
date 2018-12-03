@@ -1,0 +1,294 @@
+https://yundun.console.aliyun.com/?p=bastion#/bastion/overviews
+https://signin.aliyun.com/scloudpay666/login.htm?callback=https%3A%2F%2Fyundun.console.aliyun.com%2F%3Fp%3Dbastion
+
+liang@scloudpay666
+Onda@1478963
+
+echo "8DjKC%Mk&Om1gCqW" | passwd --stdin root ; echo "Vq5^W4JPm7jYQy4$" | passwd --stdin appuser; echo "KYt70SM35tyB%Gi4" | passwd --stdin readonly
+
+
+大数据--bdp有问题
+
+
+改脚本, ab组切换  调用阿里云api那里
+
+
+
+
+
+
+smf/war/20180524product/pay-getway.war
+smf/war/20180524product/fuqianla-bizapi.war
+smf/war/20180524product/fuqianla-reconciliation.war
+
+
+smf/war/20180524product/pay-center.zip
+
+smf/war/20180524product/receiveNotifyChan.xml	->ok
+
+
+
+WX_PUB_NOTIFY_URL=http://smfbg.9fbank.com/wxPubPayNotify
+WX_WAP_NOTIFY_URL=http://smfbg.9fbank.com/wxWapPayNotify
+
+
+
+
+线上环境 用户名密码 录入
+非正式环境 应用名录入
+数据库用户密码录入execl中的数据
+
+ansible playbook
+
+ansible-api 
+
+merchant-web.test.v74587_20180507103030.war
+	/trade/20180509/profiles/product/logback.xml	-->class/proxxxx下面替换
+
+admin.test.v74610_20180507141807.war	-->ok
+boss-admin.test.v74671_20180509105241.war
+
+
+B组
+交易⽀付	-->ok
+trade-service.test.v74894_20180516160054.war
+trade.test.v74894_20180516160201.war
+
+
+账务
+clear.test.v74874_20180516103102.war	-->ok
+account-admin.test.v74996_20180521092440.war	-->ok
+
+风控 
+risk-admin.test.v74973_20180518160040.war	-->ok
+交易⽀付
+trade-service.test.v74894_20180516160054.war
+trade.test.v74894_20180516160201.war
+渠道
+channel-front.test.v74990_20180518180525.war	-->ok
+channel-checkfile.test.v74916_20180518102230.war-->ok
+企业门户 
+merchant-web.test.v75065_20180522144952.war	-->ok
+
+
+前端-->ok
+运营后台 admin.test.v75063_20180522110040.war-->ok
+
+
+
+
+账务
+4.0.0/clear/sql/20180523/20180523_add_coloums.sql	-->ok
+渠道
+/channel/20180503/tonglian/dk/20016100001038304.p12 -->ok
+/channel/20180503/tonglian/dk/allinpay-pds.cer		-->ok
+/channel/20180503/tonglian/dk/20016100001038204.p12	-->ok
+风控
+⽣产：/wangzhenlei/risk/20180517/risk-admin/product-admin/application.properties-->ok
+
+
+
+
+
+页面 执行ansible:
+	方案1: 起一个django 或者flask ,通过subprocess直接在ansible 服务端执行，并返回	-->(最原生的api模式)
+	方案2:
+
+
+*.yml  数据库存一个名字/路径
+访问页面 显示 所有 yml文件。
+点击打开yml 渲染文件内容
+form表单 或者啥 
+下面 确定，取消, 
+add增加，出现一个空的textare
+
+
+
+
+
+
+
+
+
+
+商户中心地址：http://10.50.244.141:8401
+基础服务地址：http://10.50.244.141:8601
+
+张铁 marshinfo
+赵林 baseinfo
+
+svn  配置文件地址
+https://192.168.53.18:9999/svn/repos1/code/scloudpay/scloudpay-application-config/product
+
+
+
+svn 执行文件 https://192.168.53.18:9999/svn/repos1/code/scloudpay/scloudpay-spring/trunk/spring-boot-script
+
+A
+10.31.185.182  :8080     merchantservice1  
+10.31.150.70   :8080    merchantservice2  
+B
+10.25.157.117  :8080   merchantservice3  
+10.25.199.134  :8080    merchantservice4  
+
+A
+10.31.186.90   :8080    baseinfo1         
+10.80.50.28   :8080     baseinfo2  
+B   
+10.25.199.78  :8080     baseinfo3         
+10.25.158.55  :8080     baseinfo4 
+
+账务（使用87段）：
+
+scloudpay-overseas-account-acc 8762
+
+scloudpay-overseas-account-check 8763
+
+scloudpay-overseas-account-clear 8764
+
+scloudpay-overseas-account-data 8765
+
+scloudpay-overseas-account-fee 8766
+
+scloudpay-overseas-account-profit 8767
+
+scloudpay-overseas-account-reconfile 8768
+
+scloudpay-overseas-account-server 8769
+
+scloudpay-overseas-account-settle 8770
+
+交易（使用88段）
+
+overseas-gateway 8881
+
+overseas-trade-service 8882
+
+overseas-notice 8883
+ 
+
+渠道（使用85段）
+
+基础服务（使用86）
+商户中心（使用84）
+
+10.135.251.30
+账务账务（使用87段）：
+overseas-account-admin.test.v74239_20180424170325.war
+
+overseas-account-check.test.v73978_20180418182723.tar.gz  
+overseas-account-data.test.v73979_20180418182508.tar.gz
+运营后台
+overseas-admin.test.v74367_20180426152312.war
+
+交易支付
+smallpay-overseas-notice.test.v73694_20180413145929.tar.gz
+overseas-gateway.test.v74021_20180419105356.tar.gz
+overseas-trade-service.test.v74264_20180425135922.tar.gz
+
+
+
+10.81.233.184
+渠道渠道（使用85段）
+overseas-channel-front.test.v74325_20180426102230.tar.gz
+overseas-channel-checkfile.test.v74243_20180427135931.tar.gz
+overseas-channel-outer.test.v73657_20180426155201.tar.gz
+overseas-channel-notify.test.v74158_20180426102121.tar.gz
+overseas-channel-server.test.v74027_20180420172752.tar.gz
+overseas-channel-admin.test.v74204_20180424104727.war
+业务引擎
+scloudpay-be-eureka-client.test.v74198_20180426103919.tar.gz
+
+
+
+资源文件
+业务引擎
+	请提供
+账务
+	sql 差view
+	配置文件-->ok
+渠道
+	sql 搞定
+交易支付
+/trade/overseas/trade/sql/overseas_trade.sql	-->ok
+运营后台
+ftp://192.168.52.5/admin/sql/overseas-sysdic-update20180504DML	-->ok
+
+
+
+
+
+
+
+ECS:
+测试:
+root
+appuser
+readonly
+
+N86Zo2B^EG^xJgtA
+imCGPKrRpsyvCf9i
+S^shiWuLvr0fGL3J
+
+
+灰度:
+root
+appuser
+readonly
+
+37w6ma!LvB
+q4H3PR@^*x
+HBEN5sXYss
+
+
+压测
+root
+appuser
+readonly
+
+3aVTiX!ugu
+VTVvM11f^0
+
+bxJ38M0X1X
+
+
+
+
+童鞋们，欢迎加入《老男孩全栈9期》全套视频分享计划，本次分享包含三部分：随堂视频+在线直播+线上答疑。
+
+在线直播：
+      pythonav.com/all/1000.html 或 群通知
+
+线上答疑：
+      5.22日，alex + 武sir
+      6.12日，alex + 武sir
+      待定...
+
+随堂视频（每周四更新）：
+
+      第一部分：基础+模块+面向对象+网络编程
+          链接: https://pan.baidu.com/s/1CtXHYOxURDR6n9Du2hLXZA 密码: ksw6
+      第二部分：并发编程+前端开发+Django基础（5.3号更新）
+          
+      注意：全栈9期课程还在进行中，每周四进行视频更新。
+
+同志们，第二部分视频已经出炉，大家可以在群公共中更新了，后续每周会持续做更新：
+
+全栈9期视频（第二部分）：并发编程+MySQL数据库+前端开发
+          链接: https://pan.baidu.com/s/1xoskhdHuEP-MWr4w8zZ_gQ 密码: m66w
+
+同志们，视频更新了。
+
+Python全栈9期（第三部分）：django基础
+链接: https://pan.baidu.com/s/1vPrwETn0158TploY4AqBDQ 密码: emy3
+
+同志们，视频更新了。
+
+Python全栈9期（第四部分）：django进阶
+链接：https://pan.baidu.com/s/1yfyvKVPSlACPIjzlBpJqPg 密码：9awh
+
+同志们，本周三晚上 8: 30， 老男孩头牌 金角大王+银角大王 要来答疑了。
+大家可以整理些问题快快抛过来了， 同时也会给大家分享最新企业需要的 100道 Python面试真题
+
+
+

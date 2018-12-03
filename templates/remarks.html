@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+
+
+<form method="POST">
+    {% csrf_token %}
+    <textarea rows="10" cols="20" name="remarks" class="form-control" >
+        {{ obj.0.remarks }}
+    </textarea>
+    <input type="submit" class="btgx btn btn-primary" value="更新备注">
+</form>
+
+
+
+{% endblock %}
+{% block css %}
+
+{% endblock %}
+
+{% block js %}
+
+
+{% endblock %}

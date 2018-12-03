@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+    <form method="post">
+        {% csrf_token %}
+        id:<input type="text" name="id">
+        结果: <input type="text" value="{{ data }}">
+        <input type="submit" value="提交">
+
+    </form>
+
+
+    <form method="get">
+        x:<input type="text" name="x">
+        +
+        y:<input type="text" name="y">
+        <br>
+        年:<input type="text" name="year">
+        月:<input type="text" name="month">
+        日:<input type="text" name="day">
+        时:<input type="text" name="hour">
+        分:<input type="text" name="minute">
+        <br>
+        几分钟后:<input type="text" name="after">
+        <br>
+        取消这个任务: <input type="text" name="cancel">
+        结果:<input type="text" value="{{ cancel_tag }}">
+        <br>
+        中止这个任务: <input type="text" name="stop">
+        结果:<input type="text" value="{{ stop_tag }}">
+        <br>
+        <hr>
+        结果: <input type="text" value="{{ num }}">
+        <input type="submit" value="提交">
+
+    </form>
+</body>
+</html>

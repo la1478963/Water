@@ -1,0 +1,30 @@
+1:文件ansible_api是核心逻辑文件,也就是二次开发ansible的位置
+
+
+
+
+2:文件run 是通过flask监听端口作为api 接受参数
+    可以接受json格式或者字典格式的参数
+    例如:
+        dic={
+            msg:'shell or playbook'        普通的ansible命令就用shell,
+            host:'webserver or all',      自定义的主机(通过同名的文件来定义ip)
+            module:'command',        使用的模块
+            args:'ls',      执行的命令
+        }
+    再这个文件的最后 flask启动的地方把 ip 增加上去
+
+
+
+文件send_demo 是 向api发送请求的 demo
+    记得把服务器的ip 和端口号修改了
+
+
+
+文件webserver:
+    这个文件的名字根据 自定义主机组名决定，也就是 send_demo里面传递的  host参数的值
+    格式按照文件里面去修改就好了，修改ip和密码
+
+
+
+

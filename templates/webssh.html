@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block content %}
+
+
+
+    <section id="container" class="">
+        <div class="row">
+				<div class="col-lg-12">
+					<h3 class="page-header"><i class="icon_piechart"></i> Vnc链接</h3>
+					<ol class="breadcrumb">
+						<li><i class="fa fa-home"></i><a href="/arya/home/">Home</a></li>
+					</ol>
+				</div>
+			</div>
+
+         <div class="row">
+              <!-- chart morris start -->
+              <div class="col-lg-12">
+                  <section class="panel">
+                      <header class="panel-heading">
+                          <h3>{{ obj.hostname }}</h3>
+                      </header>
+                      <div class="panel-body">
+                          <h5>提示:密码都使用的123456,如果跳转后显示密码不正确，请到阿里云控制台修改密码(没有IO优化不能平滑修改密码)</h5>
+                        <div class="tab-pane" id="chartjs">
+                            <a class="btn btn-success  btn-lg" href="{{ url }}" title="Bootstrap 3 themes generator">跳转</a>
+                        </div>
+                      </div>
+                  </section>
+              </div>
+         </div>
+
+    </section>
+
+{% endblock %}

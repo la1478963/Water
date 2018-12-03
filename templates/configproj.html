@@ -1,0 +1,164 @@
+{% extends "base.html" %}
+{% block content %}
+
+ <!-- container section start -->
+  <section id="container" class="">
+
+      <!--main content start-->
+      <section id="main-content">
+          <section class="wrapper">
+		  <div class="row">
+				<div class="col-lg-12">
+					<h3 class="page-header"><i class="fa fa-file-text-o"></i> 配置发布</h3>
+					<ol class="breadcrumb">
+						<li><i class="fa fa-home"></i><a href="/arya/home/">Home</a></li>
+						<li><i class="icon_document_alt"></i>项目</li>
+						<li><i class="fa fa-file-text-o"></i>配置发布</li>
+					</ol>
+				</div>
+			</div>
+              <!-- Basic Forms & Horizontal Forms-->
+
+              <div class="row">
+                  <div class="col-lg-12">
+{#                      <section class="panel">#}
+                        <header class="panel-heading">
+                             配置项
+                          </header>
+                              <form  novalidate method="POST" enctype="multipart/form-data">
+                                  {% csrf_token %}
+                                  <div class="btn-group btn-fuc">
+                                      <button type="button" class="btn btn-default dropdown-toggle proje_btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        添加项 <span class="caret"></span>
+                                      </button>
+                                      <ul class="dropdown-menu">
+                                        <li><a name="package">添加包</a></li>
+                                        <li><a name="sql">添加sql</a></li>
+                                        <li><a name="conf">添加配置</a></li>
+                                      </ul>
+                                      <button type="submit" class="btn btn-info proje_btn">提交</button>
+                                    </div>
+                                  <div class="input-group col-lg-5" >
+                                      <span class="input-group-addon" id="basic-addon1">jiraID</span>
+                                      <input type="text" class="form-control" name="jira" value="{{ obj.jira.name }}">
+                                    </div>
+                                  <div class="input-group col-lg-5" >
+                                      <span class="input-group-addon" id="basic-addon1">项目</span>
+                                      <input type="text" class="form-control" disabled="disabled" name="name" placeholder="{{ obj.name }}">
+                                    </div>
+                                <div>
+                                    <div class="input-group col-lg-10 tb">
+                                          <section class="panel">
+                                              <header class="panel-heading">
+                                                 已上传的包
+                                              </header>
+                                              <table class="table">
+                                                  <thead>
+                                                      <tr>
+                                                          <th> </th>
+                                                          <th>名称</th>
+                                                          <th>创建时间</th>
+                                                          <th>环境</th>
+                                                      </tr>
+                                                  </thead>
+                                                      <tbody>
+                                                          {% for package in package_li %}
+                                                              <tr>
+                                                                  <td name="{{ package.id }}"><button type="button" class="btn btn-danger" onclick="delpackage(this)">删除</button></td>
+                                                                  <td>{{ package.disname }}</td>
+                                                                  <td>{{ package.ctime }}</td>
+                                                                  <td>{{ package.pack.all.last.env.name }}</td>
+                                                              </tr>
+                                                        {% endfor %}
+                                                      </tbody>
+                                              </table>
+                                          </section>
+                                    </div>
+
+                                </div>
+                              </form>
+                  </div>
+              </div>
+          </section>
+      </section>
+  </section>
+
+
+
+{% endblock %}
+{% block css %}
+        .tb{
+            margin-top:20px;
+        }
+        .upload_file{
+            width:70px;
+            height:35px;
+            position:absolute;
+            display:block;
+        }
+        .upload_file input{
+            opacity:0;
+            position: absolute;
+            left:0;
+            top:0;
+            cursor: pointer;
+        }
+
+        .form-group{
+            display:block;
+        }
+
+        #main-content{
+            margin-left: 80px;
+        }
+        .wrapper{
+            margin-top: 20px;
+        }
+        .btn-fuc{
+            float:left;
+            width: 1000px;
+            margin-left:10px;
+        }
+        .proje_btn{
+                margin:15px;
+            }
+
+{% endblock %}
+
+{% block js %}
+
+    <script>
+        $('.dropdown-menu li a').click(function () {
+            var this_name=$(this).attr('name');
+            var fun=$('.'+this_name);
+            fun.parent().append(fun.prop("outerHTML"));
+        });
+
+        function send(btn) {
+            var pag_name=$(btn).val();
+{#            C:\fakepath\3-29.txt#}
+            $(btn).parent().parent().prev().children('input').val(pag_name);
+        }
+
+        function delpackage(butn) {
+            var del_element=$(butn).parent().parent();
+            var n=$(butn).parent().attr('name');
+            del_element.hide();
+
+
+            $.ajax({
+                url: '/package/',
+                type: 'POST',
+                dataType: 'JSON',
+                data:{'id':n},
+{#                csrfmiddlewaretoken: '{{ csrf_token }}'},#}
+                success: function (data) {
+                    console.log(data);
+                }
+
+            })
+
+        }
+
+    </script>
+{% endblock %}

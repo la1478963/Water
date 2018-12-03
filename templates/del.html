@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+<form method="POST">
+    {% csrf_token %}
+    <input type="submit" value="确定">
+    <input type="button" value="取消" onclick="javascript:window.history.back(-1);">
+</form>
+
+{% endblock %}

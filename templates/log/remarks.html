@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% block content %}
+
+
+    <div>
+        行数:<input type="text" class="num_sub">
+        <input class="btn btn-default line" value="200" />
+        <input class="btn btn-default line" value="500"/>
+        <input class="btn btn-default line" value="No_Robot"/>
+
+        <button class="btn btn-default line_sub">提交</button>
+        <br>
+        <button class="btn btn-default" onclick="refresh()">刷新</button>
+{#        <button class="btn btn-default" onclick="ret()">刷新</button>#}
+    </div>
+    <div id="log_remarks" >
+        {% for i in ret_li %}
+            {{ i|safe }}
+        {% endfor %}
+    </div>
+
+
+{% endblock %}
+{% block css %}
+{#    <style>#}
+        #log_remarks{
+            border:1px solid #000;
+            background-color:white;
+            }
+        .line{
+            width: 70px;
+        }
+{#    </style>#}
+
+{% endblock %}
+
+
+
+{% block js %}
+    <script>
+        setTimeout(function(){
+            window.location.reload();//刷新当前页面.
+            },5000);
+
+        $('.line').click(function () {
+            var num=$(this).val();
+            get_data(num)
+        });
+
+        $('.line_sub').click(function () {
+            var num=$('.num_sub').val();
+            get_data(num)
+        });
+
+
+        function get_data(num) {
+            var lin_url='http://'+window.location.host+window.location.pathname+'?line='+num;
+            window.location.href = lin_url
+        }
+    
+        function refresh() {
+            var lin_url='http://'+window.location.host+window.location.pathname;
+            window.location.href = lin_url
+        }
+    
+        function ret() {
+            var num=$('.log_remark').length;
+            $.ajax({
+                url:'/log/',
+                type:'GET',
+                dataType:'JSON',
+                data:{num:num},
+                 success: function (data) {
+                    console.log(data)
+                 }
+            })
+        }
+    </script>
+
+{% endblock %}

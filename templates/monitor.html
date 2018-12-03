@@ -1,0 +1,291 @@
+{% extends "base.html" %}
+{% block content %}
+
+  <!-- container section start -->
+  <section id="container" class="">
+        <div class="done">
+            <span id="cpu">
+                {% for item in monitor_obj %}
+                    {{ item.cpu }},
+                {% endfor %}
+            </span>
+            <span id="iopswrite">
+                    {% for item in monitor_obj %}
+                        {{ item.iopswrite }},
+                    {% endfor %}
+                </span>
+
+            <span id="iopsread">
+                    {% for item in monitor_obj %}
+                        {{ item.iopsread }},
+                    {% endfor %}
+                </span>
+
+            <span id="intranetbandwidth">
+{#            内网带宽#}
+                    {% for item in monitor_obj %}
+                        {{ item.intranetbandwidth }},
+                    {% endfor %}
+                </span>
+
+
+            <span id="internetbandwidth">
+{#            公网带宽#}
+                    {% for item in monitor_obj %}
+                        {{ item.internetbandwidth }},
+                    {% endfor %}
+                </span>
+
+            </div>
+		<div class="row">
+				<div class="col-lg-12">
+					<h3 class="page-header"><i class="icon_piechart"></i> 监控页面</h3>
+					<ol class="breadcrumb">
+						<li><i class="fa fa-home"></i><a href="/arya/home/">Home</a></li>
+					</ol>
+				</div>
+			</div>
+
+            <div class="row">
+              <!-- chart morris start -->
+              <div class="col-lg-12">
+                  <section class="panel">
+                      <header class="panel-heading">
+                          <h3>{{ obj.0.hostname }}</h3>
+                      </header>
+                      <div class="panel-body">
+                        <div class="tab-pane" id="chartjs">
+                      <div class="row">
+                          <!-- cpu -->
+
+                          <div class="col-lg-6">
+                              <section class="panel">
+                                  <header class="panel-heading">
+                                      CPU(使用率%)
+                                  </header>
+                                  <div class="panel-body text-center">
+                                      <canvas id="_cpu" height="300" width="450"></canvas>
+                                  </div>
+                              </section>
+                          </div>
+
+                          <!-- network -->
+                          <div class="col-lg-6">
+                              <section class="panel">
+                                  <header class="panel-heading">
+                                      网卡(灰色是公网，蓝色是内网,kbits/s)
+                                  </header>
+                                  <div class="panel-body text-center">
+                                      <canvas id="_network" height="300" width="450"></canvas>
+                                  </div>
+                              </section>
+                          </div>
+
+                          <!-- io -->
+                          <div class="col-lg-6">
+                              <section class="panel">
+                                  <header class="panel-heading">
+                                      IO(灰色是写，蓝色是读,次/s)
+                                  </header>
+                                  <div class="panel-body text-center">
+                                      <canvas id="_io" height="300" width="500"></canvas>
+                                  </div>
+                              </section>
+                          </div>
+
+
+                      </div>
+{#                      <div class="row">#}
+                          <!-- Radar -->
+{#                          <div class="col-lg-6">#}
+{#                              <section class="panel">#}
+{#                                  <header class="panel-heading">#}
+{#                                      Radar#}
+{#                                  </header>#}
+{#                                  <div class="panel-body text-center">#}
+{#                                      <canvas id="radar" height="300" width="400"></canvas>#}
+{#                                  </div>#}
+{#                              </section>#}
+{#                          </div>#}
+{#                      </div>#}
+{#                      <div class="row">#}
+
+                          <!-- Pie -->
+{#                          <div class="col-lg-6">#}
+{#                              <section class="panel">#}
+{#                                  <header class="panel-heading">#}
+{#                                      Pie#}
+{#                                  </header>#}
+{#                                  <div class="panel-body text-center">#}
+{#                                      <canvas id="pie" height="300" width="400"></canvas>#}
+{#                                  </div>#}
+{#                              </section>#}
+{#                          </div>#}
+{#                      </div>#}
+                  </div>
+                      </div>
+
+                  </section>
+              </div>
+            </div>
+
+    </section>
+
+
+
+{% endblock %}
+{% block css %}
+{#    <style>#}
+        .done{
+            display: none;
+        }
+{#    </style>#}
+
+{% endblock %}
+
+{% block js %}
+
+    <script>
+        $(document).ready(function() {
+{#            CPU#}
+            var $cpu=$('#cpu').text().replace(/\ +/g,"").replace(/[\r\n]/g,"").split(',');
+            $cpu.splice($cpu.length-1,1);
+            $.each($cpu,function (index,data) {
+                $cpu[index]=parseInt(data)
+            });
+            $cpu.push(0.1);
+{#            io写#}
+            var $iopswrite=$('#iopswrite').text().replace(/\ +/g,"").replace(/[\r\n]/g,"").split(',');
+            $iopswrite.splice($iopswrite.length-1,1);
+            $.each($iopswrite,function (index,data) {
+                $iopswrite[index]=parseInt(data)
+            });
+            $iopswrite.push(0.1);
+
+{#            io读#}
+            var $iopsread=$('#iopsread').text().replace(/\ +/g,"").replace(/[\r\n]/g,"").split(',');
+            $iopsread.splice($iopsread.length-1,1);
+            $.each($iopsread,function (index,data) {
+                $iopsread[index]=parseInt(data)
+            });
+            $iopsread.push(0.1);
+
+
+{#            内网带宽#}
+             var $intranetbandwidth=$('#intranetbandwidth').text().replace(/\ +/g,"").replace(/[\r\n]/g,"").split(',');
+            $intranetbandwidth.splice($intranetbandwidth.length-1,1);
+            $.each($intranetbandwidth,function (index,data) {
+                $intranetbandwidth[index]=parseInt(data)
+            });
+            $intranetbandwidth.push(0.1);
+
+
+            {#            外网带宽#}
+             var $internetbandwidth=$('#internetbandwidth').text().replace(/\ +/g,"").replace(/[\r\n]/g,"").split(',');
+            $internetbandwidth.splice($internetbandwidth.length-1,1);
+            $.each($internetbandwidth,function (index,data) {
+                $internetbandwidth[index]=parseInt(data)
+            });
+            $internetbandwidth.push(0.1);
+
+
+
+
+            var CpuData = {
+                labels : ["之","前","5","分","钟","内","容"],
+                datasets : [
+                    {
+                        fillColor : "rgba(151,187,205,0.5)",
+                        strokeColor : "rgba(151,187,205,1)",
+                        pointColor : "rgba(151,187,205,1)",
+                        pointStrokeColor : "#fff",
+                        data : $cpu
+                    }
+                ]
+            };
+
+            var NetWorkData = {
+                labels : ["之","前","5","分","钟","内","容"],
+                datasets : [
+                    {
+                        fillColor : "rgba(220,220,220,0.5)",
+                        strokeColor : "rgba(220,220,220,1)",
+                        pointColor : "rgba(220,220,220,1)",
+                        pointStrokeColor : "#fff",
+                        data : $internetbandwidth
+                    },
+                    {
+                        fillColor : "rgba(151,187,205,0.5)",
+                        strokeColor : "rgba(151,187,205,1)",
+                        pointColor : "rgba(151,187,205,1)",
+                        pointStrokeColor : "#fff",
+                        data : $intranetbandwidth
+                    }
+                ]
+            };
+
+
+
+            var IoData = {
+                labels : ["之","前","5","分","钟","内","容"],
+                datasets : [
+                    {
+                        fillColor : "rgba(220,220,220,0.5)",
+                        strokeColor : "rgba(220,220,220,1)",
+                        data : $iopswrite
+                    },
+                    {
+                        fillColor : "rgba(151,187,205,0.5)",
+                        strokeColor : "rgba(151,187,205,1)",
+                        data : $iopsread
+                    }
+                ]
+
+            };
+
+{#            var pieData = [#}
+{#                {#}
+{#                    value: 30,#}
+{#                    color:"#F38630"#}
+{#                },#}
+{#                {#}
+{#                    value : 50,#}
+{#                    color : "#E0E4CC"#}
+{#                },#}
+{#                {#}
+{#                    value : 100,#}
+{#                    color : "#69D2E7"#}
+{#                }#}
+{#            ];#}
+
+
+{#            var radarChartData = {#}
+{#                labels : ["","","","","","",""],#}
+{#                datasets : [#}
+{#                    {#}
+{#                        fillColor : "rgba(220,220,220,0.5)",#}
+{#                        strokeColor : "rgba(220,220,220,1)",#}
+{#                        pointColor : "rgba(220,220,220,1)",#}
+{#                        pointStrokeColor : "#fff",#}
+{#                        data : [65,59,90,81,56,55,40]#}
+{#                    },#}
+{#                    {#}
+{#                        fillColor : "rgba(151,187,205,0.5)",#}
+{#                        strokeColor : "rgba(151,187,205,1)",#}
+{#                        pointColor : "rgba(151,187,205,1)",#}
+{#                        pointStrokeColor : "#fff",#}
+{#                        data : [28,48,40,19,96,27,100]#}
+{#                    }#}
+{#                ]#}
+{#            };#}
+
+            new Chart(document.getElementById("_cpu").getContext("2d")).Line(CpuData);
+{#            new Chart(document.getElementById("radar").getContext("2d")).Radar(radarChartData);#}
+            new Chart(document.getElementById("_io").getContext("2d")).Bar(IoData);
+            new Chart(document.getElementById("_network").getContext("2d")).Line(NetWorkData);
+{#            new Chart(document.getElementById("_network").getContext("2d")).Bar(NetWorkData);#}
+{#            new Chart(document.getElementById("pie").getContext("2d")).Pie(pieData);#}
+        });
+    </script>
+
+{% endblock %}

@@ -1,0 +1,9 @@
+<option value="">{{ item.0 }}</option>
+
+{% for val in item.1 %}
+    {% if ret == val %}
+    <option selected="selected"  value={{ val }}>{{ val }}</option>
+    {% else %}
+    <option value={{ val }}>{{ val }}</option>
+    {% endif %}
+ {% endfor %}

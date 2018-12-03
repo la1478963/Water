@@ -1,0 +1,3 @@
+[webserver]
+10.45.138.26 ansible_ssh_pass='mima'
+10.44.63.168 ansible_ssh_pass='密码'

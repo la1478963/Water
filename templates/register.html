@@ -1,0 +1,138 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<head>
+	<title>CMDB注册</title>
+	<meta name="keywords" content="" />
+	<meta name="description" content="" />
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link rel="stylesheet"  href='{% static "dist/css/bootstrap.min.css" %}' type="text/css">
+	<link rel="stylesheet"  href='{% static "dist/css/font-awesome.min.css" %}' type="text/css">
+	<link rel="stylesheet"  href='{% static "dist/css/bootstrap.min.css" %}' type="text/css">
+	<link rel="stylesheet"  href='{% static "dist/css/templatemo_style.css" %}' type="text/css">
+
+    <script src="{% static 'dist/js/jquery-3.1.1.js' %}"></script>
+    <script src="{% static 'dist/js/bootstrap.js' %}"></script>
+
+
+
+
+</head>
+<body class="templatemo-bg-gray">
+
+<div class="all">
+
+	<div class="container">
+		<div class="col-md-12">
+			<h1 class="margin-bottom-15">注册</h1>
+
+			<form class="form-horizontal templatemo-container templatemo-login-form-1 margin-bottom-30" id="f1"  role="form" novalidate>
+                {% csrf_token %}
+		        <div class="form-group">
+		          <div class="col-xs-12">
+		            <div class="control-wrapper">
+		            	<label for="username" class="control-label fa-label"><i class="fa fa-user fa-medium"></i></label>
+		            	<p id="username">{{ form.username }}</p>
+{#						<span class="add_tag" >用户已存在</span>#}
+		            </div>
+		          </div>
+		        </div>
+		        <div class="form-group">
+		          <div class="col-md-12">
+		          	<div class="control-wrapper">
+		            	<label for="password" class="control-label fa-label"><i class="fa fa-lock fa-medium"></i></label>
+		            	<p id="password">{{ form.password }}</p>
+		            </div>
+		          </div>
+		        </div>
+
+                <div class="form-group">
+		          <div class="col-md-12">
+		          	<div class="control-wrapper">
+		            	<label for="password" class="control-label fa-label"><i class="fa fa-lock fa-medium"></i></label>
+		            	<p id="password2">{{ form.password_confum }}</p>
+		            </div>
+		          </div>
+		        </div>
+
+		        <div class="form-group">
+		          <div class="col-md-12">
+	             	<div class="checkbox control-wrapper">
+	              	</div>
+		          </div>
+		        </div>
+		        <div class="form-group">
+		          <div class="col-md-12">
+		          	<div class="control-wrapper">
+		          		<input type="button" value="提交数据" class="btn btn-info" id="submit">
+						<input type="button" value="登录入口" class="btn btn-info Login">
+		          	</div>
+		          </div>
+		        </div>
+		        <hr>
+		      </form>
+		</div>
+	</div>
+</div>
+</body>
+<style>
+	.add_tag{
+		display: none;
+	}
+	.all{
+		margin-top:200px;
+	}
+    .container{
+        background-size:100% 100%;
+    }
+</style>
+</html>
+<!--写到这里了，写完 username的 鼠标 离开 动作，尚未判断， 后台未写-->
+<script>
+    $('p input').click(function () {
+        $(this).val('')
+    });
+
+     $("#submit").click(function () {
+        $('.error').remove();
+        $.ajaxSetup({
+            data: {csrfmiddlewaretoken: '{{ csrf_token }}' }
+        });
+        $.ajax({
+            url:'/arya/register/',
+            type:'POST',
+            dataType:'JSON',
+            data:$('#f1').serialize(),
+            success:function (data) {
+                console.log(data.msg);
+                if (data.msg) {
+                    if (data.status){
+                        window.location.href = "/arya/login/"
+                    }
+                    else{
+                        alert(data.data)
+                    }
+                }
+                else {
+                    $.each(data.data, function (k, v) {
+                        console.log(k);
+                        var pig = document.createElement('span');
+                        pig.innerHTML = v[0];
+                        pig.className = "error";
+                        // <span class='error'>v[0]</span>
+                        console.log(v[0]);
+
+                        $('#f1 input[name="' + k + '"]').after(pig);
+                    })
+                }
+            }
+        })
+    });
+
+
+
+	$(".Login").click(function () {
+		window.location.replace("/arya/login/");
+    })
+</script>

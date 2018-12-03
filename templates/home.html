@@ -1,0 +1,135 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>首页</h1>
+    <section id="container" class="">
+        <div class="row">
+            <div class="col-lg-12">
+                  <section class="panel">
+                      <header class="panel-heading">
+                          Ping mas.99bill.com
+                      </header>
+                      <div class="panel-body text-center">
+                          <canvas id="_ping" height="300" width="1100"></canvas>
+                      </div>
+                  </section>
+            </div>
+        </div>
+    </section>
+
+
+
+
+    <div class="kuai btn-default btn-blue btn apps">
+        应用列表
+    </div>
+    <div class="kuai btn-default btn-blues btn  hosts">
+        主机详情
+    </div>
+
+{#    <div class="kuai btn-default btn-yello btn ">#}
+{#        监控#}
+{#    </div>#}
+{##}
+{#    <div class="kuai btn-default btn-red btn ">#}
+{#        docker#}
+{#    </div>#}
+{##}
+    <div class="kuai btn-default btn-grenn btn release">
+        发布项目
+    </div>
+
+    <div class="kuai btn-default btn-red btn log">
+        系统日志
+    </div>
+{##}
+{#    <div class="kuai btn-default btn-test btn ">#}
+{#        测试环境#}
+{#    </div>#}
+
+{#    <div>#}
+{#        #}
+{#    </div>#}
+    <style>
+    .btn-test{
+        background-color: #74829c;
+    }
+     .btn-blues{
+         background-color: #00aced;
+     }
+
+    .btn-blue{
+        background-color: blue;
+    }
+    .btn-yello{
+        background-color: yellow;
+    }
+    .btn-red{
+        background-color: red;
+    }
+        .btn-grenn{
+            background-color: green;
+        }
+        .kuai{
+            height: 250px;
+            width: 250px;
+            font-size: 30px;
+            line-height: 250px;
+            margin: 40px;
+        }
+        button{
+            width: 300px;
+        }
+    </style>
+
+
+{% endblock %}
+
+
+
+{% block js %}
+    <script>
+
+        $(document).ready(function() {
+            $.ajaxSetup({
+                data: {csrfmiddlewaretoken: '{{ csrf_token }}'}
+            });
+            $.ajax({
+                url:'/arya/home/',
+                type:'POST',
+                dataType:'JSON',
+                 success:function (data) {
+                    var $ping_ms=[];
+                    var $ping_t=[];
+                    $.each(data.ms,function () {
+                        $ping_ms.push(parseInt(this));
+                    });
+
+                     var PingData = {
+{#                            labels : [1,2,3,4,5,6,7,8,9,0],#}
+                            labels : data.time,
+                            datasets : [
+                                {
+                                    fillColor : "rgba(151,187,205,0.5)",
+                                    strokeColor : "rgba(151,187,205,1)",
+                                    pointColor : "rgba(151,187,205,1)",
+                                    pointStrokeColor : "#fff",
+                                    data :$ping_ms
+{#                                    data :["4","27","31","23","5"]#}
+                                }
+                            ]
+                    };
+                    new Chart(document.getElementById("_ping").getContext("2d")).Line(PingData);
+                             }
+            });
+
+
+
+
+        });
+
+
+    </script>
+
+
+
+{% endblock %}
