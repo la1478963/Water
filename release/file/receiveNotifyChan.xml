@@ -1,9 +1,0 @@
-<!-- 微信公众号WAP支付 异步通知 -->
-	<catalog id="wxWapPayNotify" contentType="html" desc="接收微信通知">
-		<chain id="wxPubPayNotifyChain">
-			<publish queueName="receiveNotifyServiceQueue" isSync="true" desc="接收通道通知服务" />
-			<condition cond="status=='02'" class="com.creditease.ns.controller.chain.command.CondParser" desc="接收通道通知若状态为02发送通知给商户">
-				<publish queueName="merNotifyServiceQueue" isSync="false" desc="通知服务" />
-			</condition>
-		</chain>
-	</catalog>
