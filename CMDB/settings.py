@@ -225,7 +225,7 @@ CORS_ALLOW_HEADERS = (
 #################client################
 # SALT_API='https://101.201.141.232:8001/'
 # SALT_USERNAME='saltapi'
-# SALT_PASSWORD='123@qwe'
+# SALT_PASSWORD='qqqqq'
 
 
 ########celery
@@ -234,8 +234,8 @@ from celery.schedules import crontab
 from datetime import timedelta
 djcelery.setup_loader()
 CELERY_TIMEZONE = TIME_ZONE
-BROKER_URL='redis://:onda@47.93.86.201:6379/1'
-CELERY_RESULT_BACKEND='redis://:onda@47.93.86.201:6379/2'
+BROKER_URL='redis://:onda@10.0.0.1:6379/1'
+CELERY_RESULT_BACKEND='redis://:onda@10.0.0.1:6379/2'
 CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
